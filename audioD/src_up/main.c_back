@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+#if defined(_WIN32) && !defined(__CYGWIN__)
+#include <windows.h>
+#else
+#include <sys/select.h>
+#endif
+
+
+
+#include "../include/led.h"
+#include "../include/timer.h"
+
+#include <time.h>
+#include <signal.h>
+#include "led.h"
+#include "sem.h"
+#include "timer.h"
+
+
+
+#include "../include/curl_down.h"
+#include "../include/log.h"
+
+
+#include<unistd.h>
+
+unsigned int ledOn = 0;
+
+void alarm_handle_upgrade(int sig)
+{
+	printf("Led :%d\n", ledOn);
+        if(ledOn == 0)
+        {
+                led_on();
+		ledOn = 1;
+        }else
+        {
+                led_off();
+		ledOn = 0;
+        }
+}
+
+void main()
+{
+    
+
+			unset_time();
+                	signal(SIGALRM, alarm_handle_upgrade);
+                	set_time(0,200000);
+			for(;;)
+			{
+				sleep(0.1);
+			}
+}
