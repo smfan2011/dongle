@@ -62,7 +62,7 @@ void main()
     
 	char * binUrl;
 
-    // upgrate img from ota
+    //// upgrate img from ota
 
     //if(system("ping -c 1 -w 2 120.27.138.117") == 0)
     if(system("ping -c 1 -w 2 dongle.topqizhi.com") == 0)
